@@ -1,0 +1,9 @@
+#
+#feign:
+#  client:
+#    config:
+#      log-client: default
+
+logging:
+  level:
+    com.jolboo.stock: debug

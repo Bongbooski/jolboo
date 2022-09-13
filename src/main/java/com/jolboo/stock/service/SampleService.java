@@ -1,7 +1,7 @@
 package com.jolboo.stock.service;
 
-import com.jolboo.stock.dto.SampleDTO;
+import com.jolboo.stock.dto.HashResponseDTO;
 
 public interface SampleService {
-    SampleDTO retrieveSample();
+    HashResponseDTO retrieveSample();
 }
