@@ -26,7 +26,7 @@ public class SampleServiceImpl implements SampleService {
                 .FUOP_ITEM_DVSN_CD("")
                 .ORD_DVSN_CD("02")
                 .build();
-        HashResponseDTO result = stockFeign.getHashKey("PSfpiTgQ4YH5OZHp7o5sa15NzNHSirtv6vvP", "qwze/XOZPjW3aLOpSAhTAyVxxKsH5F7Gx9wdXVWWEEf9E1DmA9rue0kxPw5/bxT30oW8sDnVCKLn3hZDBDPx1o2Lxqc8sq+eilmMXqjKl555Gya3OhYhOpi1Vat/Oe0dHUaE/pcM/fOxJfNZVtgsZdzr1fysho6UFvsNkhoXqzbaiyu/z14=", hashRequestDTO);
+        HashResponseDTO result = stockFeign.getHashKey("PSdKEUeekE0RmiocZcnU2D4BbqlGwbWR4nGL", "SEoigsKllVV4N1PMBBIlNehO0h2BGBo2997P7LbtlZgILRDIXDUkFQYy64A7HneqTJa4PDs7ZRhFs6qUP80mtgHIq1Kohs7tmnQgczh8yVEU6WnWg1tVJ3qjmDvMJQI8FwTF3eaRKTYDcZXOn4bbtZrOMqOQF0GCJA9QfPg1081990TCwQ0=", hashRequestDTO);
         return result;
     }
 }
