@@ -20,4 +20,10 @@ public class SampleRestController {
     public ResponseEntity<ResponseData> retrieveSample() {
         return ResponseUtility.createGetSuccessResponse(sampleService.retrieveSample());
     }
+
+    @GetMapping(path = "/v1/vts/balance")
+    @ResponseBody
+    public ResponseEntity<ResponseData> getVtsBalance() {
+        return ResponseUtility.createGetSuccessResponse(sampleService.getVtsGetBalance());
+    }
 }

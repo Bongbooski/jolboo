@@ -2,7 +2,7 @@ spring:
   profiles:
     activate: local
   flyway:
-    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728
+    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728&allowPublicKeyRetrieval=true
     user: root
     password: jolboo2022
     locations: classpath:/db/migration/common_sql
@@ -10,6 +10,6 @@ spring:
     ignore-missing-migrations: true
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728
+    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728&allowPublicKeyRetrieval=true
     username: root
     password: jolboo2022
