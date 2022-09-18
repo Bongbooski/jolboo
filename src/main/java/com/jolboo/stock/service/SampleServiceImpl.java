@@ -3,6 +3,7 @@ package com.jolboo.stock.service;
 import com.jolboo.stock.dto.HashRequestDTO;
 import com.jolboo.stock.dto.HashResponseDTO;
 import com.jolboo.stock.feign.StockFeign;
+import com.jolboo.stock.repository.SampleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SampleServiceImpl implements SampleService {
     private final StockFeign stockFeign;
+    private final SampleRepository sampleRepository;
+
     public HashResponseDTO retrieveSample() {
 
         HashRequestDTO hashRequestDTO = HashRequestDTO.builder()
@@ -27,6 +30,9 @@ public class SampleServiceImpl implements SampleService {
                 .ORD_DVSN_CD("02")
                 .build();
         HashResponseDTO result = stockFeign.getHashKey("PSdKEUeekE0RmiocZcnU2D4BbqlGwbWR4nGL", "SEoigsKllVV4N1PMBBIlNehO0h2BGBo2997P7LbtlZgILRDIXDUkFQYy64A7HneqTJa4PDs7ZRhFs6qUP80mtgHIq1Kohs7tmnQgczh8yVEU6WnWg1tVJ3qjmDvMJQI8FwTF3eaRKTYDcZXOn4bbtZrOMqOQF0GCJA9QfPg1081990TCwQ0=", hashRequestDTO);
+
+        sampleRepository.findById(1);
+
         return result;
     }
 }

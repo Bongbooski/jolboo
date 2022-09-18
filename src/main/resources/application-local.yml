@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    activate: local
+  flyway:
+    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=true&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728
+    user: root
+    password: jolboo2022
+    locations: classpath:/db/migration/common_sql
+    out-of-order: true
+    ignore-missing-migrations: true
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jolboo?useSSL=false&useMysqlMetadata=true&createDatabaseIfNotExist=false&useUnicode=yes&characterEncoding=UTF-8&serverTimezone=UTC&maxAllowedPacket=134217728
+    username: root
+    password: jolboo2022
