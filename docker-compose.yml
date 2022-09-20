@@ -18,8 +18,9 @@ services:
 
 networks:
   mysql8:
-    external:
-      name: mysql8
+    name: mysql8
+    external: true
+
 
 volumes:
   db_data:
