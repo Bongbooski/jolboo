@@ -63,7 +63,8 @@ public class SampleServiceImpl implements SampleService {
         VtsGetBalanceRequestHeaderDTO requestHeaderDTO = VtsGetBalanceRequestHeaderDTO.builder()
                 .appkey(appKey)
                 .appsecret(appSecret)
-                .authorization(getAuthorization())
+//                .authorization(getAuthorization())
+                .authorization("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImFhNzUzYjg5LTJlN2EtNDQ5NS04N2Q0LTE5MGNjOWQ0OWE3ZiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjYzOTM5NDI1LCJpYXQiOjE2NjM4NTMwMjUsImp0aSI6IlBTZEtFVWVla0UwUm1pb2NaY25VMkQ0QmJxbEd3YldSNG5HTCJ9.tS9YcwhJZFGxFUHE2B1qV5CwATrTH1gNYKAvZRmnrckM3pURQNazbSnpKwOXvyUkQZjvH3Utvb7oznnwuKz_Yw")
                 .build();
         VtsGetBalanceRequestParamDTO requestParamDTO = VtsGetBalanceRequestParamDTO.builder()
                 .CANO(cano)
@@ -78,7 +79,7 @@ public class SampleServiceImpl implements SampleService {
                 .CTX_AREA_NK100("")
                 .CTX_AREA_FK100("")
                 .build();
-        VtsGetBalanceResponseDTO result = stockFeign.getVtsBalance(requestHeaderDTO, requestParamDTO);
+        VtsGetBalanceResponseDTO result = stockFeign.getVtsBalance(requestHeaderDTO.getAuthorization(), requestHeaderDTO.getAppkey(), requestHeaderDTO.getAppsecret(), requestHeaderDTO.getTr_id(), requestParamDTO.getCANO(), requestParamDTO.getACNT_PRDT_CD(),requestParamDTO.getAFHR_FLPR_YN(), requestParamDTO.getOFL_YN(), requestParamDTO.getINQR_DVSN(), requestParamDTO.getUNPR_DVSN(), requestParamDTO.getFUND_STTL_ICLD_YN(), requestParamDTO.getFNCG_AMT_AUTO_RDPT_YN(), requestParamDTO.getPRCS_DVSN(), requestParamDTO.getCTX_AREA_FK100(), requestParamDTO.getCTX_AREA_NK100() );
 return result;
     }
 }
