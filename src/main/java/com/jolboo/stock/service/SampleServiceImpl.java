@@ -16,6 +16,8 @@ public class SampleServiceImpl implements SampleService {
     private final String appSecret = "SEoigsKllVV4N1PMBBIlNehO0h2BGBo2997P7LbtlZgILRDIXDUkFQYy64A7HneqTJa4PDs7ZRhFs6qUP80mtgHIq1Kohs7tmnQgczh8yVEU6WnWg1tVJ3qjmDvMJQI8FwTF3eaRKTYDcZXOn4bbtZrOMqOQF0GCJA9QfPg1081990TCwQ0=";
     private final String cano = "50070822";
 
+    private final String grantType = "client_credentials";
+
     public HashResponseDTO retrieveSample() {
 
         HashRequestDTO hashRequestDTO = HashRequestDTO.builder()
@@ -43,7 +45,7 @@ public class SampleServiceImpl implements SampleService {
 
         HashRequestDTO hashRequestDTO = HashRequestDTO.builder()
                 .ORD_PRCS_DVSN_CD("02")
-                .CANO("계좌번호")
+                .CANO(cano)
                 .ACNT_PRDT_CD("03")
                 .SLL_BUY_DVSN_CD("02")
                 .SHTN_PDNO("101S06")
