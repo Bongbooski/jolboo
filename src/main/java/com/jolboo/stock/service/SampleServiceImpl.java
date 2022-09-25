@@ -1,19 +1,36 @@
 package com.jolboo.stock.service;
 
+import com.jolboo.stock.config.AccessToken;
 import com.jolboo.stock.dto.*;
 import com.jolboo.stock.feign.StockFeign;
+import com.jolboo.stock.feign.StockOauthFeign;
+import com.jolboo.stock.model.OauthVO;
+import com.jolboo.stock.repository.OauthRepository;
 import com.jolboo.stock.repository.SampleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class SampleServiceImpl implements SampleService {
     private final StockFeign stockFeign;
+    private final StockOauthFeign stockOauthFeign;
     private final SampleRepository sampleRepository;
 
-    private final String appKey = "PSdKEUeekE0RmiocZcnU2D4BbqlGwbWR4nGL";
-    private final String appSecret = "SEoigsKllVV4N1PMBBIlNehO0h2BGBo2997P7LbtlZgILRDIXDUkFQYy64A7HneqTJa4PDs7ZRhFs6qUP80mtgHIq1Kohs7tmnQgczh8yVEU6WnWg1tVJ3qjmDvMJQI8FwTF3eaRKTYDcZXOn4bbtZrOMqOQF0GCJA9QfPg1081990TCwQ0=";
+    private final AccessToken accessToken;
+
+    private final OauthRepository oauthRepository;
+
+    @Value("${app.oauth.appkey}")
+    private String appKey;
+    @Value("${app.oauth.appsecret}")
+    private String appSecret;
     private final String cano = "50070822";
 
     private final String grantType = "client_credentials";
@@ -34,15 +51,39 @@ public class SampleServiceImpl implements SampleService {
                 .FUOP_ITEM_DVSN_CD("")
                 .ORD_DVSN_CD("02")
                 .build();
-        HashResponseDTO result = stockFeign.getHashKey(appKey, appSecret, hashRequestDTO);
+        HashResponseDTO result = stockOauthFeign.getHashKey(appKey, appSecret, hashRequestDTO);
 
         sampleRepository.findById(1);
 
+        accessToken.setHashKey(result.getHASH());
         return result;
     }
 
-    public String getAuthorization() {
+    public void setAccessToken() {
+        String today = OffsetDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMd"));
+        Optional<OauthVO> byIssuedDate = oauthRepository.findByIssuedDate(today);
 
+        if (byIssuedDate.isEmpty()) {
+            AccessTokenResponseDTO client_credentials = stockOauthFeign.getAccessToken(AccessTokenRequestDTO.builder()
+                    .grant_type("client_credentials")
+                    .appkey(appKey)
+                    .appsecret(appSecret)
+                    .build());
+            OauthVO oauth = OauthVO.builder()
+                    .issuedDate(today)
+                    .accessToken(client_credentials.getToken_type() + " " + client_credentials.getAccess_token())
+                    .expiredDatetime(OffsetDateTime.parse(client_credentials.getAccess_token_token_expired(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneOffset.UTC)))
+                    .build();
+            oauthRepository.save(oauth);
+            accessToken.setAccessToken(client_credentials.getToken_type() + " " + client_credentials.getAccess_token());
+        } else {
+            accessToken.setAccessToken(byIssuedDate.get().getAccessToken());
+        }
+
+//        stockFeign.getInquirePrice("J", "000660");
+    }
+
+    public String getAuthorization() {
         HashRequestDTO hashRequestDTO = HashRequestDTO.builder()
                 .ORD_PRCS_DVSN_CD("02")
                 .CANO(cano)
@@ -57,17 +98,18 @@ public class SampleServiceImpl implements SampleService {
                 .FUOP_ITEM_DVSN_CD("")
                 .ORD_DVSN_CD("02")
                 .build();
-        HashResponseDTO result = stockFeign.getHashKey(appKey, appSecret, hashRequestDTO);
+        HashResponseDTO result = stockOauthFeign.getHashKey(appKey, appSecret, hashRequestDTO);
         return result.getHASH();
     }
 
+    private void setRequestHeader(String trId) {
+        setAccessToken();
+        accessToken.setTrId(trId);
+    }
+
     public VtsGetBalanceResponseDTO getVtsGetBalance() {
-        VtsGetBalanceRequestHeaderDTO requestHeaderDTO = VtsGetBalanceRequestHeaderDTO.builder()
-                .appkey(appKey)
-                .appsecret(appSecret)
-//                .authorization(getAuthorization())
-                .authorization("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImFhNzUzYjg5LTJlN2EtNDQ5NS04N2Q0LTE5MGNjOWQ0OWE3ZiIsImlzcyI6InVub2d3IiwiZXhwIjoxNjYzOTM5NDI1LCJpYXQiOjE2NjM4NTMwMjUsImp0aSI6IlBTZEtFVWVla0UwUm1pb2NaY25VMkQ0QmJxbEd3YldSNG5HTCJ9.tS9YcwhJZFGxFUHE2B1qV5CwATrTH1gNYKAvZRmnrckM3pURQNazbSnpKwOXvyUkQZjvH3Utvb7oznnwuKz_Yw")
-                .build();
+        setRequestHeader("VTTC8434R");
+
         VtsGetBalanceRequestParamDTO requestParamDTO = VtsGetBalanceRequestParamDTO.builder()
                 .CANO(cano)
                 .ACNT_PRDT_CD("01")
@@ -81,7 +123,7 @@ public class SampleServiceImpl implements SampleService {
                 .CTX_AREA_NK100("")
                 .CTX_AREA_FK100("")
                 .build();
-        VtsGetBalanceResponseDTO result = stockFeign.getVtsBalance(requestHeaderDTO.getAuthorization(), requestHeaderDTO.getAppkey(), requestHeaderDTO.getAppsecret(), requestHeaderDTO.getTr_id(), requestParamDTO.getCANO(), requestParamDTO.getACNT_PRDT_CD(),requestParamDTO.getAFHR_FLPR_YN(), requestParamDTO.getOFL_YN(), requestParamDTO.getINQR_DVSN(), requestParamDTO.getUNPR_DVSN(), requestParamDTO.getFUND_STTL_ICLD_YN(), requestParamDTO.getFNCG_AMT_AUTO_RDPT_YN(), requestParamDTO.getPRCS_DVSN(), requestParamDTO.getCTX_AREA_FK100(), requestParamDTO.getCTX_AREA_NK100() );
-return result;
+        VtsGetBalanceResponseDTO result = stockFeign.getVtsBalance(requestParamDTO.getCANO(), requestParamDTO.getACNT_PRDT_CD(),requestParamDTO.getAFHR_FLPR_YN(), requestParamDTO.getOFL_YN(), requestParamDTO.getINQR_DVSN(), requestParamDTO.getUNPR_DVSN(), requestParamDTO.getFUND_STTL_ICLD_YN(), requestParamDTO.getFNCG_AMT_AUTO_RDPT_YN(), requestParamDTO.getPRCS_DVSN(), requestParamDTO.getCTX_AREA_FK100(), requestParamDTO.getCTX_AREA_NK100() );
+        return result;
     }
 }

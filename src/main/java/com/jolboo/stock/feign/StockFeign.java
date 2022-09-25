@@ -7,15 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 @FeignClient(name = "stock", url = "https://openapivts.koreainvestment.com:29443", configuration = FeignConfig.class)
 public interface StockFeign {
-    @PostMapping(value = "/uapi/hashkey")
-    HashResponseDTO getHashKey(@RequestHeader("appkey") String appKey, @RequestHeader("appsecret") String appSecret, @RequestBody HashRequestDTO hashRequestDTO);
+    @GetMapping(value = "/uapi/domestic-stock/v1/quotations/inquire-price?FID_COND_MRKT_DIV_CODE={fidCondMrktDivCode}&FID_INPUT_ISCD={fidInputIscd}")
+    InquirePriceResponseDTO getInquirePrice(@PathVariable String fidCondMrktDivCode, @PathVariable String fidInputIscd);
 
     @GetMapping(value = "/uapi/domestic-stock/v1/trading/inquire-balance")
     VtsGetBalanceResponseDTO getVtsBalance(
-                                           @RequestHeader String authorization,
-                                           @RequestHeader String appkey,
-                                           @RequestHeader String appsecret,
-                                           @RequestHeader String tr_id,
                                            @RequestParam String CANO,
                                            @RequestParam String ACNT_PRDT_CD,
                                            @RequestParam String AFHR_FLPR_YN,
