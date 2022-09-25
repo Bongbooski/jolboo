@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class InquirePriceResponseDTO {
-    String iscd_stat_cls_code;
+  String iscd_stat_cls_code;
 }

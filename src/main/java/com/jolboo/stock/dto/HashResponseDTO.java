@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class HashResponseDTO {
-    private Object BODY;
-    private String HASH;
+  private Object BODY;
+  private String HASH;
 }

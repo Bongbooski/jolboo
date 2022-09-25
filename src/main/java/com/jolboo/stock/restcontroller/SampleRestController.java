@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class SampleRestController {
-    private final SampleService sampleService;
+  private final SampleService sampleService;
 
+  @GetMapping(path = "/v1/sample")
+  @ResponseBody
+  public ResponseEntity<ResponseData> retrieveSample() {
+    return ResponseUtility.createGetSuccessResponse(sampleService.retrieveSample());
+  }
 
-    @GetMapping(path = "/v1/sample")
-    @ResponseBody
-    public ResponseEntity<ResponseData> retrieveSample() {
-        return ResponseUtility.createGetSuccessResponse(sampleService.retrieveSample());
-    }
-
-    @GetMapping(path = "/v1/vts/balance")
-    @ResponseBody
-    public ResponseEntity<ResponseData> getVtsBalance() {
-        return ResponseUtility.createGetSuccessResponse(sampleService.getVtsGetBalance());
-    }
+  @GetMapping(path = "/v1/vts/balance")
+  @ResponseBody
+  public ResponseEntity<ResponseData> getVtsBalance() {
+    return ResponseUtility.createGetSuccessResponse(sampleService.getVtsGetBalance());
+  }
 }
