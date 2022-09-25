@@ -9,7 +9,7 @@ import lombok.Getter;
 @Table(name = "sample")
 @Getter
 public class SampleVO {
-  @Id private Integer sampleId;
+    @Id private Integer sampleId;
 
-  private String name;
+    private String name;
 }

@@ -4,9 +4,9 @@ import com.jolboo.stock.dto.HashResponseDTO;
 import com.jolboo.stock.dto.VtsGetBalanceResponseDTO;
 
 public interface SampleService {
-  HashResponseDTO retrieveSample();
+    HashResponseDTO retrieveSample();
 
-  void setAccessToken();
+    void setAccessToken();
 
-  VtsGetBalanceResponseDTO getVtsGetBalance();
+    VtsGetBalanceResponseDTO getVtsGetBalance();
 }

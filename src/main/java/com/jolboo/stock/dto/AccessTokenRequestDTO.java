@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Builder
 public class AccessTokenRequestDTO {
-  String grant_type;
-  String appkey;
-  String appsecret;
+    String grant_type;
+    String appkey;
+    String appsecret;
 }

@@ -9,21 +9,21 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class FlywayConfig {
 
-  @Value("${spring.flyway.user}")
-  String user;
+    @Value("${spring.flyway.user}")
+    String user;
 
-  @Value("${spring.flyway.password}")
-  String password;
+    @Value("${spring.flyway.password}")
+    String password;
 
-  @Bean
-  public FlywayMigrationStrategy cleanMigrateStrategy() {
-    FlywayMigrationStrategy strategy =
-        new FlywayMigrationStrategy() {
-          @Override
-          public void migrate(Flyway flyway) {
-            flyway.migrate();
-          }
-        };
-    return strategy;
-  }
+    @Bean
+    public FlywayMigrationStrategy cleanMigrateStrategy() {
+        FlywayMigrationStrategy strategy =
+                new FlywayMigrationStrategy() {
+                    @Override
+                    public void migrate(Flyway flyway) {
+                        flyway.migrate();
+                    }
+                };
+        return strategy;
+    }
 }

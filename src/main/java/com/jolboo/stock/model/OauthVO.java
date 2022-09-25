@@ -14,11 +14,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OauthVO {
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer oauthId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer oauthId;
 
-  private String issuedDate;
-  private String accessToken;
-  private OffsetDateTime expiredDatetime;
+    private String issuedDate;
+    private String accessToken;
+    private OffsetDateTime expiredDatetime;
 }

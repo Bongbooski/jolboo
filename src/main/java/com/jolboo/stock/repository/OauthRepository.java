@@ -5,5 +5,5 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface OauthRepository extends JpaRepository<OauthVO, Integer> {
-  Optional<OauthVO> findByIssuedDate(String today);
+    Optional<OauthVO> findByIssuedDate(String today);
 }

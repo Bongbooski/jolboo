@@ -59,7 +59,7 @@ spotless {
 
         importOrder 'java', 'javax', 'org', 'com', 'com.diffplug', ''
 
-        googleJavaFormat()
+        googleJavaFormat('1.7').aosp()
     }
 
     format 'misc', {
