@@ -70,3 +70,8 @@ spotless {
         endWithNewline()
     }
 }
+
+task makeStockItems(type:Exec) {
+    workingDir '.'
+    commandLine 'python', 'sample.py'
+}
