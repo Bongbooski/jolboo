@@ -9,4 +9,6 @@ public interface SampleService {
     void setAccessToken();
 
     VtsGetBalanceResponseDTO getVtsGetBalance();
+
+    void getPrice();
 }

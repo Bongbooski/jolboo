@@ -29,4 +29,14 @@ public interface StockFeign {
             @RequestParam String PRCS_DVSN,
             @RequestParam String CTX_AREA_FK100,
             @RequestParam String CTX_AREA_NK100);
+
+    @GetMapping(value = "/uapi/domestic-stock/v1/quotations/inquire-daily-itemchartprice")
+    PriceDTO getPrice(
+            @RequestParam String FID_COND_MRKT_DIV_CODE,
+            @RequestParam String FID_INPUT_ISCD,
+            @RequestParam String FID_INPUT_DATE_1,
+            @RequestParam String FID_INPUT_DATE_2,
+            @RequestParam String FID_PERIOD_DIV_CODE,
+            @RequestParam String FID_ORG_ADJ_PRC
+            );
 }

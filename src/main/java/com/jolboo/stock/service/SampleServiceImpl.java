@@ -155,4 +155,9 @@ public class SampleServiceImpl implements SampleService {
                         requestParamDTO.getCTX_AREA_NK100());
         return result;
     }
+
+    public void getPrice() {
+        setRequestHeader("FHKST03010100");
+        PriceDTO price = stockFeign.getPrice("J", "005930", "20220806", "20221006", "D", "0");
+    }
 }
