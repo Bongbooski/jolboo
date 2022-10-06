@@ -1,0 +1,18 @@
+spring:
+  profiles:
+    active: local
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    hibernate:
+      use-new-id-generator-mappings: false
+      ddl-auto: none
+app:
+  oauth:
+    appkey: PSdKEUeekE0RmiocZcnU2D4BbqlGwbWR4nGL
+    appsecret : SEoigsKllVV4N1PMBBIlNehO0h2BGBo2997P7LbtlZgILRDIXDUkFQYy64A7HneqTJa4PDs7ZRhFs6qUP80mtgHIq1Kohs7tmnQgczh8yVEU6WnWg1tVJ3qjmDvMJQI8FwTF3eaRKTYDcZXOn4bbtZrOMqOQF0GCJA9QfPg1081990TCwQ0=
+logging:
+  level:
+    com.jolboo.stock: debug
