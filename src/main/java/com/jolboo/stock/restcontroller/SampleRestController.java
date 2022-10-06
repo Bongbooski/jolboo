@@ -31,4 +31,11 @@ public class SampleRestController {
     public ResponseEntity<ResponseData> getPrice() {
         return ResponseUtility.createGetSuccessResponse(sampleService.getVtsGetBalance());
     }
+    
+    @GetMapping(path = "/v1/openApi/stockInfo")
+    @ResponseBody
+    public ResponseEntity<ResponseData> getStockInfo() {
+        sampleService.getOpenApiStockInfo();
+        return ResponseUtility.createGetSuccessResponse(null);
+    }
 }

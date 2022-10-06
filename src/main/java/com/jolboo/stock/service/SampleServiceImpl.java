@@ -2,6 +2,7 @@ package com.jolboo.stock.service;
 
 import com.jolboo.stock.config.AccessToken;
 import com.jolboo.stock.dto.*;
+import com.jolboo.stock.feign.OpenApiFeign;
 import com.jolboo.stock.feign.StockFeign;
 import com.jolboo.stock.feign.StockOauthFeign;
 import com.jolboo.stock.model.OauthVO;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SampleServiceImpl implements SampleService {
     private final StockFeign stockFeign;
+    private final OpenApiFeign openApiFeign;
     private final StockOauthFeign stockOauthFeign;
     private final SampleRepository sampleRepository;
 
@@ -160,4 +162,18 @@ public class SampleServiceImpl implements SampleService {
         setRequestHeader("FHKST03010100");
         PriceDTO price = stockFeign.getPrice("J", "005930", "20220806", "20221006", "D", "0");
     }
+    
+    @Override
+    public void getOpenApiStockInfo() {
+        String encodedKey =
+                "vYz0Mfm6gUIZORS0QK0oscKIYhS4D988LACpgdnRZf5QxZX9z2Pz0GdaRs7oK4dTWBcbwwVK4QDhyiLJyFsNzA%3D%3D";
+        String decodedKey =
+                "vYz0Mfm6gUIZORS0QK0oscKIYhS4D988LACpgdnRZf5QxZX9z2Pz0GdaRs7oK4dTWBcbwwVK4QDhyiLJyFsNzA==";
+
+//        OpenApiResponse result =
+//                openApiFeign.getOpenApiStockInfo("20",encodedKey, "json");
+
+        System.out.println("resultCode"+ openApiFeign.getOpenApiStockInfo("20",encodedKey, "json"));
+
+    };
 }

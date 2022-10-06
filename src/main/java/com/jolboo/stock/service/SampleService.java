@@ -11,4 +11,6 @@ public interface SampleService {
     VtsGetBalanceResponseDTO getVtsGetBalance();
 
     void getPrice();
+    
+    void getOpenApiStockInfo();
 }
